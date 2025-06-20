@@ -10,13 +10,13 @@ const Settings = ({
   setDifficulty,
   players,
   setPlayers,
-  onStart
+  onStart,
+  setScores
 }) => {
   return (
     <div className="bg-white p-6 rounded-xl shadow-lg max-w-md w-full">
       <h2 className="text-2xl font-bold text-gray-700 mb-4 text-center">Oyun Ayarları</h2>
 
-      {/* Oyun modu */}
       <div className="mb-4">
         <p className="text-gray-600 mb-2 font-medium">Oyun Modu:</p>
         <div className="flex space-x-4">
@@ -37,7 +37,6 @@ const Settings = ({
         </div>
       </div>
 
-      {/* Oyuncu isimleri */}
       <div className="mb-4">
         <p className="text-gray-600 mb-2 font-medium">Oyuncu İsimleri:</p>
         <input
@@ -47,14 +46,27 @@ const Settings = ({
           className="w-full mb-2 p-2 rounded border"
           placeholder="X oyuncusu"
         />
+        
         {gameMode === 'twoPlayer' ? (
-          <input
-            type="text"
-            value={players.player2}
-            onChange={(e) => setPlayers(prev => ({ ...prev, player2: e.target.value }))}
-            className="w-full p-2 rounded border"
-            placeholder="O oyuncusu"
-          />
+            <>
+                <input
+                type="text"
+                value={players.player2}
+                onChange={(e) => setPlayers(prev => ({ ...prev, player2: e.target.value }))}
+                className="w-full p-2 rounded border mb-4"
+                placeholder="O oyuncusu"
+              />
+              <button
+                onClick={() => {
+                  setPlayers({ player1: 'Oyuncu 1', player2: 'Oyuncu 2' });
+                  setScores({ X: 0, O: 0 });
+                }}
+                className='px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition'
+              >
+                Sıfırla
+              </button>
+            </>
+          
         ) : (
           <input
             type="text"
