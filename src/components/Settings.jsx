@@ -10,130 +10,147 @@ const Settings = ({
   setDifficulty,
   players,
   setPlayers,
+  gridSize,
+  setGridSize,
   onStart,
   setScores
-}) => {
-  return (
-    <div className="bg-white p-6 rounded-xl shadow-lg max-w-md w-full">
-      <h2 className="text-2xl font-bold text-gray-700 mb-4 text-center">Oyun Ayarları</h2>
+}) => (
+  <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-md space-y-4">
+    <h2 className="text-center text-2xl font-bold">Oyun Ayarları</h2>
 
-      <div className="mb-4">
-        <p className="text-gray-600 mb-2 font-medium">Oyun Modu:</p>
-        <div className="flex space-x-4">
-          <button
-            onClick={() => setGameMode('twoPlayer')}
-            className={`px-4 py-2 rounded-lg font-medium transition
-              ${gameMode === 'twoPlayer' ? 'bg-indigo-600 text-white' : 'bg-gray-200 hover:bg-gray-300'}`}
-          >
-            2 Oyuncu
-          </button>
-          <button
-            onClick={() => setGameMode('singlePlayer')}
-            className={`px-4 py-2 rounded-lg font-medium transition
-              ${gameMode === 'singlePlayer' ? 'bg-indigo-600 text-white' : 'bg-gray-200 hover:bg-gray-300'}`}
-          >
-            Tek Oyuncu
-          </button>
-        </div>
+    <div>
+      <p className="font-medium mb-1">Oyun Modu:</p>
+      <div className="flex space-x-2">
+        <button
+          onClick={() => setGameMode('twoPlayer')}
+          className={`px-3 py-2 rounded ${
+            gameMode === 'twoPlayer' ? 'bg-indigo-600 text-white' : 'bg-gray-200'
+          }`}
+        >
+          2 Oyuncu
+        </button>
+        <button
+          onClick={() => setGameMode('singlePlayer')}
+          className={`px-3 py-2 rounded ${
+            gameMode === 'singlePlayer' ? 'bg-indigo-600 text-white' : 'bg-gray-200'
+          }`}
+        >
+          Tek Oyuncu
+        </button>
       </div>
+    </div>
 
-      <div className="mb-4">
-        <p className="text-gray-600 mb-2 font-medium">Oyuncu İsimleri:</p>
-        <input
-          type="text"
-          value={players.player1}
-          onChange={(e) => setPlayers(prev => ({ ...prev, player1: e.target.value }))}
-          className="w-full mb-2 p-2 rounded border"
-          placeholder="X oyuncusu"
-        />
-        
-        {gameMode === 'twoPlayer' ? (
-            <>
-                <input
-                type="text"
-                value={players.player2}
-                onChange={(e) => setPlayers(prev => ({ ...prev, player2: e.target.value }))}
-                className="w-full p-2 rounded border mb-4"
-                placeholder="O oyuncusu"
-              />
-              <button
-                onClick={() => {
-                  setPlayers({ player1: 'Oyuncu 1', player2: 'Oyuncu 2' });
-                  setScores({ X: 0, O: 0 });
-                }}
-                className='px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition'
-              >
-                Sıfırla
-              </button>
-            </>
-          
-        ) : (
-          <input
-            type="text"
-            value={players.player2}
-            onChange={(e) => setPlayers(prev => ({ ...prev, player2: e.target.value }))}
-            className="w-full p-2 rounded border bg-gray-100"
-            readOnly
-            placeholder="Bilgisayar"
-          />
-        )}
+    <div>
+      <p className="font-medium mb-1">Tahta Boyutu:</p>
+      <div className="flex space-x-2">
+        <button
+          onClick={() => setGridSize(3)}
+          className={`px-3 py-2 rounded ${
+            gridSize === 3 ? 'bg-indigo-600 text-white' : 'bg-gray-200'
+          }`}
+        >
+          3 × 3
+        </button>
+        <button
+          onClick={() => setGridSize(4)}
+          className={`px-3 py-2 rounded ${
+            gridSize === 4 ? 'bg-indigo-600 text-white' : 'bg-gray-200'
+          }`}
+        >
+          4 × 4
+        </button>
       </div>
+    </div>
 
-      {/* Sembol seçimi */}
-      {gameMode === 'singlePlayer' && (
-        <div className="mb-4">
-          <p className="text-gray-600 mb-2 font-medium">Sembol Seç:</p>
-          <div className="flex space-x-4">
+    {gameMode === 'singlePlayer' && (
+      <>
+        <div>
+          <p className="font-medium mb-1">Sembol Seçimi:</p>
+          <div className="flex space-x-2">
             <button
               onClick={() => setPlayerSymbol('X')}
-              className={`w-16 h-16 text-2xl rounded-lg transition
-                ${playerSymbol === 'X' ? 'bg-blue-200 text-blue-700 border border-blue-400' : 'bg-gray-100'}`}
+              className={`px-3 py-2 rounded ${
+                playerSymbol === 'X' ? 'bg-blue-500 text-white' : 'bg-gray-200'
+              }`}
             >
               X
             </button>
             <button
               onClick={() => setPlayerSymbol('O')}
-              className={`w-16 h-16 text-2xl rounded-lg transition
-                ${playerSymbol === 'O' ? 'bg-red-200 text-red-700 border border-red-400' : 'bg-gray-100'}`}
+              className={`px-3 py-2 rounded ${
+                playerSymbol === 'O' ? 'bg-red-500 text-white' : 'bg-gray-200'
+              }`}
             >
               O
             </button>
           </div>
         </div>
-      )}
 
-      {/* Zorluk seçimi */}
-      {gameMode === 'singlePlayer' && (
-        <div className="mb-6">
-          <p className="text-gray-600 mb-2 font-medium">Zorluk:</p>
-          <div className="flex space-x-4">
+        <div>
+          <p className="font-medium mb-1">Zorluk:</p>
+          <div className="flex space-x-2">
             <button
               onClick={() => setDifficulty('easy')}
-              className={`px-4 py-2 rounded-lg font-medium transition
-                ${difficulty === 'easy' ? 'bg-green-500 text-white' : 'bg-gray-200 hover:bg-gray-300'}`}
+              className={`px-3 py-2 rounded ${
+                difficulty === 'easy' ? 'bg-green-500 text-white' : 'bg-gray-200'
+              }`}
             >
               Kolay
             </button>
             <button
               onClick={() => setDifficulty('hard')}
-              className={`px-4 py-2 rounded-lg font-medium transition
-                ${difficulty === 'hard' ? 'bg-red-500 text-white' : 'bg-gray-200 hover:bg-gray-300'}`}
+              className={`px-3 py-2 rounded ${
+                difficulty === 'hard' ? 'bg-red-500 text-white' : 'bg-gray-200'
+              }`}
             >
               Zor
             </button>
           </div>
         </div>
-      )}
+      </>
+    )}
 
-      {/* Başlat */}
+    <div>
+      <input
+        type="text"
+        value={players.player1}
+        onChange={e => setPlayers(prev => ({ ...prev, player1: e.target.value }))}
+        placeholder="Oyuncu 1 ismi"
+        className="w-full p-2 border rounded mb-2"
+      />
+      {gameMode === 'twoPlayer' ? (
+        <input
+          type="text"
+          value={players.player2}
+          onChange={e => setPlayers(prev => ({ ...prev, player2: e.target.value }))}
+          placeholder="Oyuncu 2 ismi"
+          className="w-full p-2 border rounded"
+        />
+      ) : (
+        <input
+          type="text"
+          value="Bilgisayar"
+          readOnly
+          className="w-full p-2 border rounded bg-gray-100"
+        />
+      )}
+    </div>
+
+    <div className="flex space-x-2">
       <button
-        onClick={onStart}
-        className="w-full py-3 bg-green-600 hover:bg-green-700 text-white font-bold rounded-lg transition"
+        onClick={() => {
+          setPlayers({ player1: 'Oyuncu 1', player2: 'Oyuncu 2' });
+          setScores({ X: 0, O: 0 });
+        }}
+        className="flex-1 py-2 bg-yellow-500 text-white rounded"
       >
-        Oyunu Başlat
+        Sıfırla
+      </button>
+      <button onClick={onStart} className="flex-1 py-2 bg-green-500 text-white rounded">
+        Başlat
       </button>
     </div>
-  );
-};
+  </div>
+);
 
 export default Settings;

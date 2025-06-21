@@ -1,16 +1,41 @@
 // utils/calculateWinner.js
+export function calculateWinner(board, gridSize, winLength) {
+  // 4×4 için winLength'ın 4 olduğundan emin olun
+  const lines = [];
+  
+  // Yatay kontrol (4×4 için)
+  for (let row = 0; row < gridSize; row++) {
+    for (let col = 0; col <= gridSize - winLength; col++) {
+      lines.push(Array.from({length: winLength}, (_, i) => row * gridSize + col + i));
+    }
+  }
 
-export const calculateWinner = (squares) => {
-  const lines = [
-    [0, 1, 2], [3, 4, 5], [6, 7, 8], // yatay
-    [0, 3, 6], [1, 4, 7], [2, 5, 8], // dikey
-    [0, 4, 8], [2, 4, 6],            // çapraz
-  ];
+  // Dikey kontrol
+  for (let col = 0; col < gridSize; col++) {
+    for (let row = 0; row <= gridSize - winLength; row++) {
+      lines.push(Array.from({length: winLength}, (_, i) => (row + i) * gridSize + col));
+    }
+  }
 
-  for (let [a, b, c] of lines) {
-    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
+  // Çapraz kontrol (\) 
+  for (let row = 0; row <= gridSize - winLength; row++) {
+    for (let col = 0; col <= gridSize - winLength; col++) {
+      lines.push(Array.from({length: winLength}, (_, i) => (row + i) * gridSize + (col + i)));
+    }
+  }
+
+  // Çapraz kontrol (/)
+  for (let row = 0; row <= gridSize - winLength; row++) {
+    for (let col = winLength - 1; col < gridSize; col++) {
+      lines.push(Array.from({length: winLength}, (_, i) => (row + i) * gridSize + (col - i)));
+    }
+  }
+
+  for (let line of lines) {
+    const first = board[line[0]];
+    if (first && line.every(index => board[index] === first)) {
+      return first;
     }
   }
   return null;
-};
+}

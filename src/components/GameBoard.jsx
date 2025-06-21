@@ -1,18 +1,24 @@
 // components/GameBoard.jsx
 import React from 'react';
 
-const GameBoard = ({ board, onSquareClick, isDisabled }) => {
+export default function GameBoard({ board, onSquareClick, gridSize, isDisabled }) {
   return (
-    <div className="grid grid-cols-3 gap-2 mb-6">
-      {board.map((value, i) => (
+    <div
+      className="grid gap-2 mb-6"
+      style={{
+        gridTemplateColumns: `repeat(${gridSize}, minmax(60px, 1fr))`,
+        gridAutoRows: 'minmax(60px, 1fr)'
+      }}
+    >
+      {board.map((value, index) => (
         <button
-          key={i}
-          onClick={() => onSquareClick(i)}
-        //   disabled={value || isDisabled}
-          className={`w-20 h-20 text-3xl font-bold rounded-lg flex items-center justify-center 
+          key={index}
+          onClick={() => onSquareClick(index)}
+          disabled={isDisabled || value}
+          className={`w-full h-full text-2xl font-bold rounded-lg flex items-center justify-center
             ${value === 'X' ? 'bg-blue-100 text-blue-600' : ''}
             ${value === 'O' ? 'bg-red-100 text-red-600' : ''}
-            ${!value ? 'bg-gray-300 hover:bg-gray-200' : ''}
+            ${!value ? 'bg-gray-100 hover:bg-gray-200' : ''}
             transition-colors duration-200`}
         >
           {value}
@@ -20,6 +26,4 @@ const GameBoard = ({ board, onSquareClick, isDisabled }) => {
       ))}
     </div>
   );
-};
-
-export default GameBoard;
+}

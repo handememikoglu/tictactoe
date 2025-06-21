@@ -1,25 +1,47 @@
-// utils/minimax.js
-export const getBestMove = (board, computer, player) => {
-  const emptyIndexes = board.map((val, idx) => (val === null ? idx : null)).filter(i => i !== null);
+import { calculateWinner } from './calculateWinner';
+import { findBestQuickMove } from './findBestQuickMove';
 
-  const winner = calculateWinner(board);
-  if (winner === computer) return { score: 10 };
-  if (winner === player) return { score: -10 };
-  if (emptyIndexes.length === 0) return { score: 0 };
+export const getBestMove = (board, computer, player, gridSize = 3, depth = 0, maxDepth = 2) => {
+  const winner = calculateWinner(board, gridSize, gridSize);
+  if (winner === computer) return { score: 10 - depth };
+  if (winner === player) return { score: depth - 10 };
+  if (board.every(cell => cell !== null)) return { score: 0 };
+
+  // 4x4 için hızlı karar
+  if (gridSize === 4 && depth > maxDepth) {
+    return {
+      index: findBestQuickMove(board, computer, player, gridSize),
+      score: 0
+    };
+  }
 
   const moves = [];
 
-  for (let i of emptyIndexes) {
-    const newBoard = [...board];
-    newBoard[i] = computer;
+  for (let i = 0; i < board.length; i++) {
+    if (!board[i]) {
+      const newBoard = [...board];
+      newBoard[i] = (depth % 2 === 0) ? computer : player;
 
-    const result = getBestMove(newBoard, player, computer); // swap roles
-    moves.push({ index: i, score: -result.score });
+      const result = getBestMove(newBoard, computer, player, gridSize, depth + 1, maxDepth);
+
+      moves.push({
+        index: i,
+        score: result.score
+      });
+    }
   }
 
-  // en iyi skoru bul
-  const best = moves.reduce((best, move) => move.score > best.score ? move : best, moves[0]);
-  return best;
-};
+  // Bilgisayar (max)
+  if (depth % 2 === 0) {
+    return moves.reduce((best, move) =>
+      move.score > best.score ? move : best,
+      { score: -Infinity }
+    );
+  }
 
-import { calculateWinner } from './calculateWinner';
+  // Oyuncu (min)
+  return moves.reduce((best, move) =>
+    move.score < best.score ? move : best,
+    { score: Infinity }
+  );
+};
