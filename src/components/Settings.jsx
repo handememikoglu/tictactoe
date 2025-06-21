@@ -24,7 +24,7 @@ const Settings = ({
         <button
           onClick={() => setGameMode('twoPlayer')}
           className={`px-3 py-2 rounded ${
-            gameMode === 'twoPlayer' ? 'bg-indigo-600 text-white' : 'bg-gray-200'
+            gameMode === 'twoPlayer' ? 'bg-[#FFB703] text-white' : 'bg-gray-200'
           }`}
         >
           2 Oyuncu
@@ -32,7 +32,7 @@ const Settings = ({
         <button
           onClick={() => setGameMode('singlePlayer')}
           className={`px-3 py-2 rounded ${
-            gameMode === 'singlePlayer' ? 'bg-indigo-600 text-white' : 'bg-gray-200'
+            gameMode === 'singlePlayer' ? 'bg-[#FFB703] text-white' : 'bg-gray-200'
           }`}
         >
           Tek Oyuncu
@@ -46,7 +46,7 @@ const Settings = ({
         <button
           onClick={() => setGridSize(3)}
           className={`px-3 py-2 rounded ${
-            gridSize === 3 ? 'bg-indigo-600 text-white' : 'bg-gray-200'
+            gridSize === 3 ? 'bg-[#8ECAE6] text-white' : 'bg-gray-200'
           }`}
         >
           3 × 3
@@ -54,7 +54,7 @@ const Settings = ({
         <button
           onClick={() => setGridSize(4)}
           className={`px-3 py-2 rounded ${
-            gridSize === 4 ? 'bg-indigo-600 text-white' : 'bg-gray-200'
+            gridSize === 4 ? 'bg-[#8ECAE6] text-white' : 'bg-gray-200'
           }`}
         >
           4 × 4
@@ -70,7 +70,7 @@ const Settings = ({
             <button
               onClick={() => setPlayerSymbol('X')}
               className={`px-3 py-2 rounded ${
-                playerSymbol === 'X' ? 'bg-blue-500 text-white' : 'bg-gray-200'
+                playerSymbol === 'X' ? 'bg-[#8ECAE6] text-white' : 'bg-gray-200'
               }`}
             >
               X
@@ -78,7 +78,7 @@ const Settings = ({
             <button
               onClick={() => setPlayerSymbol('O')}
               className={`px-3 py-2 rounded ${
-                playerSymbol === 'O' ? 'bg-red-500 text-white' : 'bg-gray-200'
+                playerSymbol === 'O' ? 'bg-[#8ECAE6] text-white' : 'bg-gray-200'
               }`}
             >
               O
@@ -92,7 +92,7 @@ const Settings = ({
             <button
               onClick={() => setDifficulty('easy')}
               className={`px-3 py-2 rounded ${
-                difficulty === 'easy' ? 'bg-green-500 text-white' : 'bg-gray-200'
+                difficulty === 'easy' ? 'bg-[#FFB703] text-white' : 'bg-gray-200'
               }`}
             >
               Kolay
@@ -100,7 +100,7 @@ const Settings = ({
             <button
               onClick={() => setDifficulty('hard')}
               className={`px-3 py-2 rounded ${
-                difficulty === 'hard' ? 'bg-red-500 text-white' : 'bg-gray-200'
+                difficulty === 'hard' ? 'bg-[#FFB703] text-white' : 'bg-gray-200'
               }`}
             >
               Zor
@@ -142,11 +142,11 @@ const Settings = ({
           setPlayers({ player1: 'Oyuncu 1', player2: 'Oyuncu 2' });
           setScores({ X: 0, O: 0 });
         }}
-        className="flex-1 py-2 bg-yellow-500 text-white rounded"
+        className="flex-1 py-2 bg-[#023047] text-white rounded"
       >
         Sıfırla
       </button>
-      <button onClick={onStart} className="flex-1 py-2 bg-green-500 text-white rounded">
+      <button onClick={onStart} className="flex-1 py-2 bg-[#219EBC] text-white rounded">
         Başlat
       </button>
     </div>

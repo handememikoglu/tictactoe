@@ -63,7 +63,7 @@ function XOXGame() {
     }, 500);
     return () => clearTimeout(timer);
   }
-}, [board, currentPlayer, gameStarted, gameMode, winner, isDraw, difficulty, playerSymbol]); // currentPlayer'ı ekledik
+}, [board, currentPlayer, gameStarted, gameMode, winner, isDraw, difficulty, playerSymbol]); 
 
   useEffect(() => {
     if (winner) {
@@ -121,15 +121,15 @@ const makeSmartMove = () => {
       ...prev,
       player2: gameMode === 'singlePlayer' ? 'Bilgisayar' : prev.player2
     }));
-     setGameStarted(true); // Bu mutlaka olmalı!
+     setGameStarted(true); 
       setBoard(Array(totalSquares).fill(null));
-      setIsXNext(playerSymbol === 'X'); // X başlıyorsa true, O başlıyorsa false
+      setIsXNext(playerSymbol === 'X'); 
       setScores({ X: 0, O: 0 });
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4">
-      <h1 className="text-4xl font-bold mb-4">XOX Oyunu</h1>
+    <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4 text-[#023047]">
+      <h1 className="text-4xl font-bold mb-4 ">Tic Tac Toe Oyunu</h1>
       {showConfetti && <Confetti width={width} height={height} recycle={false} />}
 
       {!gameStarted ? (
@@ -169,11 +169,11 @@ const makeSmartMove = () => {
             gridSize={gridSize}
             isDisabled={Boolean(winner)}
           />
-          <div className="flex space-x-2 mt-4">
-            <button onClick={resetGame} className="px-4 py-2 bg-gray-600 text-white rounded">
+          <div className="flex justify-center space-x-8 mt-4 ml-4">
+            <button onClick={resetGame} className="px-10 py-2 bg-[#023047] text-white rounded">
               Yeni Oyun
             </button>
-            <button onClick={() => setGameStarted(false)} className="px-4 py-2 bg-red-600 text-white rounded">
+            <button onClick={() => setGameStarted(false)} className="px-4 py-2 bg-[#219EBC] text-white rounded">
               Ana Sayfaya Dön
             </button>
           </div>

@@ -11,12 +11,12 @@ const GameStatus = ({ winner, isDraw, currentPlayer, gameMode, playerSymbol, pla
   };
 
   if (winner) {
-    return <div className="text-green-600 font-bold text-xl">Kazanan: {displayName(winner)}</div>;
+    return <div className="text-green-600 font-bold text-xl mb-4">Kazanan: {displayName(winner)}</div>;
   }
   if (isDraw) {
-    return <div className="text-gray-700 font-semibold text-xl">Berabere!</div>;
+    return <div className="text-gray-700 font-semibold text-xl mb-4">Berabere!</div>;
   }
-  return <div className="text-gray-800 font-semibold text-xl">Sıra: {displayName(currentPlayer)}</div>;
+  return <div className="text-gray-800 font-semibold text-xl mb-4">Sıra: {displayName(currentPlayer)}</div>;
 };
 
 export default GameStatus;
